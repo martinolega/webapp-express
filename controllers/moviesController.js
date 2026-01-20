@@ -22,8 +22,8 @@ function show(req, res, next) {
     connection.query(movieQuery, [id], (err, movieResult) => {
         if (err) return next(err);
 
-        if (movieResult === 0) {
-            return res.status(404).json({ message: "Movie not found" });
+        if (movieResult.length === 0) {
+            return res.status(404).json({ message: "Movie not found", status: 404 });
         }
         const movie = movieResult[0];
 
@@ -35,7 +35,7 @@ function show(req, res, next) {
         connection.query(reviewsQuery, [id], (err, reviewsResult) => {
             if (err) return next(err);
 
-            return res.json({
+            return res.status(200).json({
                 movie: movie,
                 reviews: reviewsResult
             });
