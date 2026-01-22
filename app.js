@@ -1,10 +1,20 @@
 import "dotenv/config";
+import cors from "cors";
 import express from "express";
 import moviesRouter from "./routers/moviesRouter.js";
 import routeNotFound from "./middlewares/routeNotFound.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
+
+const corsFunctionality = {
+    origin: process.env.FRONTEND_URL,
+    methods: ["GET"],
+}
+
+app.use(cors(corsFunctionality));
+
+app.use(express.static("public"));
 const port = process.env.SERVER_PORT;
 
 app.use("/api/movies", moviesRouter);
