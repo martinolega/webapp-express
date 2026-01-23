@@ -6,10 +6,12 @@ import routeNotFound from "./middlewares/routeNotFound.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
+app.use(express.json());
+//app.use(express.urlencoded({extended: true}));
 
 const corsFunctionality = {
     origin: process.env.FRONTEND_URL,
-    methods: ["GET"],
+    methods: ["GET", "POST"],
 }
 
 app.use(cors(corsFunctionality));
